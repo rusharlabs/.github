@@ -8,10 +8,16 @@ tooling for coding-agent work in which a claim is accepted only with the command
 **Agent teams under evidence: only what they prove counts as done.**
 
 House Party Protocol (HPP) is a local-first harness for coding-agent teams on Claude Code and
-Codex CLI. It is not the orchestrator: whatever hands out the work decides who works on what, and
-HPP decides what counts as done. Waves and lanes split the work, a verdict from the builder's own
-lane or model family is refused, nothing is verified without recorded evidence, and its refusals
-exit non-zero, so a script can gate on them. It is a Python package with no runtime dependencies,
+Codex CLI. It orchestrates the team and decides what counts as done: its lane-kit splits the work
+into lanes and waves, hands items out on a board and starts Claude Code or Codex sessions from a
+local dashboard, always on an action you take. If you already have an orchestrator, HPP sits under
+it and still decides what counts as done. While the lanes share one repository, a git guard warns
+(or, once you switch it on, blocks) before one lane's broad git command sweeps up another live
+lane's work in the shared index. Sessions keep their place across a stop, a compaction or a crash:
+the continuity-kit writes a handoff before the session ends, and `hpp resume` derives the next step
+from the hash-chained event log. A verdict from the builder's own lane or model family is refused,
+nothing is verified without recorded evidence, and its refusals exit non-zero, so a script can gate
+on them. It is a Python package with no runtime dependencies,
 released under the MIT license; the `hpp` package itself calls no model and runs nothing in the
 background, and each module declares in the manifest what it may do. The same repository is a
 plugin marketplace for Claude Code and for Codex CLI.
